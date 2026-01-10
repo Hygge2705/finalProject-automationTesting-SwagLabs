@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ui.CheckOutPageUI;
 import ui.InventoryPageUI;
 
 import java.time.Duration;
@@ -32,10 +33,13 @@ public class InventoryPage {
         return driver.findElement(InventoryPageUI.APP_LOGO).isDisplayed();
     }
 
-    public boolean isMenuActive(){
+    // Check menu actions
+    public void openMenu(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(InventoryPageUI.MENU));
         driver.findElement(InventoryPageUI.MENU).click();
+    }
 
+    public boolean isMenuActive(){
         // Tạo list các item trong menu để chờ và kiểm tra
         List<By> menuOptions = Arrays.asList(
                 InventoryPageUI.ALL_ITEMS_LINK,
@@ -59,12 +63,48 @@ public class InventoryPage {
         return true;
     }
 
+    public void clickAllItems(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(InventoryPageUI.ALL_ITEMS_LINK));
+        driver.findElement(InventoryPageUI.ALL_ITEMS_LINK).click();
+    }
+
+    public void clickAbout(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(InventoryPageUI.ABOUT_LINK));
+        driver.findElement(InventoryPageUI.ABOUT_LINK).click();
+    }
+
     public void clickResetAppState(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(InventoryPageUI.MENU));
-        driver.findElement(InventoryPageUI.MENU).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(InventoryPageUI.RESET_APP_STATE_LINK));
         driver.findElement(InventoryPageUI.RESET_APP_STATE_LINK).click();
     }
+
+    public void clickLogout(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(InventoryPageUI.LOGOUT_LINK));
+        driver.findElement(InventoryPageUI.LOGOUT_LINK).click();
+    }
+
+    public void closeMenu(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(InventoryPageUI.CLOSE));
+        driver.findElement(InventoryPageUI.CLOSE).click();
+    }
+
+    public boolean isMenuClosed(){
+        return driver.findElements(InventoryPageUI.MENU_HIDDEN).isEmpty();
+    }
+
+    public boolean isCartEmpty(){
+        return driver.findElements(InventoryPageUI.NUM_OF_CART).isEmpty();
+    }
+
+    public boolean areAllProductsReset(){
+        return driver.findElements(InventoryPageUI.REMOVE_FROM_CART_BUTTON).isEmpty();
+    }
+
+    public boolean isLogoutSuccessful(){
+        return Objects.requireNonNull(driver.getCurrentUrl()).equals("https://www.saucedemo.com/")
+                && driver.findElement(By.id("login-button")).isDisplayed();
+    }
+
 
     public boolean isShoppingCartActive(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(InventoryPageUI.SHOPPING_CART));
@@ -225,6 +265,11 @@ public class InventoryPage {
                 break;
             }
         }
+    }
+
+    public boolean verifyOnProductDetailPage() {
+        return Objects.equals(driver.getTitle(), "Swag Labs")
+                && Objects.requireNonNull(driver.getCurrentUrl()).contains("/inventory-item.html?id=");
     }
 
     public void clickBackToProductsButton(){

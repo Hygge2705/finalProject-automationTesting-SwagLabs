@@ -12,6 +12,8 @@ public class InventoryPageUI {
     public static final By ABOUT_LINK = By.id("about_sidebar_link");
     public static final By LOGOUT_LINK = By.id("logout_sidebar_link");
     public static final By RESET_APP_STATE_LINK = By.id("reset_sidebar_link");
+    public static final By CLOSE = By.id("react-burger-cross-btn");
+    public static final By MENU_HIDDEN = By.cssSelector("[aria-hidden='false']");
 
     //Sort_by
     public static final By SORt_BY = By.cssSelector("[data-test='product-sort-container']");

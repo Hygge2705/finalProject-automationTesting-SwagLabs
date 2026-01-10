@@ -1,8 +1,8 @@
 package action;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import ui.LoginPageUI;
+import java.util.Objects;
 
 public class LoginPage {
     WebDriver driver;
@@ -21,11 +21,10 @@ public class LoginPage {
     }
 
     //Kiểm tra tiêu đề và url
-    public void verifyOnLoginPage() {
-        Assert.assertEquals(driver.getTitle(), "Swag Labs", "Title mismatch!");
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/", "URL mismatch!");
+    public boolean verifyOnLoginPage() {
+        return Objects.equals(driver.getTitle(),"Swag Labs")
+                && Objects.requireNonNull(driver.getCurrentUrl()).contains("www.saucedemo.com");
     }
-
 
     //Kiểm tra hiển thị logo
     public boolean isLogoDisplayed(){
@@ -33,8 +32,8 @@ public class LoginPage {
     }
 
     //Kiểm tra sau hiển thị sản phẩm sau khi đăng nhập
-    public int getInventoryCount(){
-        return driver.findElements(LoginPageUI.INVENTORY_ITEM).size();
+    public boolean getInventoryCount(){
+        return driver.findElements(LoginPageUI.INVENTORY_ITEM).isEmpty();
     }
 
     //Lấy nội dung thông báo lỗi

@@ -61,11 +61,6 @@ public class YourCartPage extends Hook {
         return true;
     }
 
-    public String getTitleYourCartPage(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(YourCartPageUI.PAGE_TITLE));
-        return driver.findElement(YourCartPageUI.PAGE_TITLE).getText();
-    }
-
     public boolean isShoppingCartDisplayed(){
         return driver.findElement(YourCartPageUI.SHOPPING_CART).isDisplayed();
     }
@@ -86,7 +81,7 @@ public class YourCartPage extends Hook {
         return driver.findElement(YourCartPageUI.BACK_IMAGE).isDisplayed();
     }
 
-    public void clickContinueButton(){
+    public void clickContinueShoppingButton(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(YourCartPageUI.CONTINUE_SHOPPING_BUTTON));
         driver.findElement(YourCartPageUI.CONTINUE_SHOPPING_BUTTON).click();
     }

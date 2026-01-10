@@ -13,6 +13,7 @@ import utils.Hook;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static utils.TestContext.selectedProducts;
 
@@ -25,6 +26,25 @@ public class CheckOutPage extends Hook {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
+    public boolean verifyOnCheckoutInformationPage() {
+        return Objects.equals(driver.getTitle(), "Swag Labs")
+                && Objects.requireNonNull(driver.getCurrentUrl()).contains("checkout-step-one")
+                && driver.findElement(CheckOutPageUI.PAGE_TITLE)
+                .getText().equals("Checkout: Your Information");
+    }
+
+    public boolean verifyOnCheckoutOverviewPage() {
+        return Objects.equals(driver.getTitle(), "Swag Labs")
+                && Objects.requireNonNull(driver.getCurrentUrl()).contains("checkout-step-two")
+                && driver.findElement(CheckOutPageUI.PAGE_TITLE)
+                .getText().equals("Checkout: Overview");
+    }
+
+    public boolean verifyOnCheckoutCompletePage() {
+        return Objects.equals(driver.getTitle(), "Swag Labs")
+                && Objects.requireNonNull(driver.getCurrentUrl()).contains("checkout-complete")
+                && driver.findElement(CheckOutPageUI.COMPLETED_HEADER).isDisplayed();
+    }
 
     //1. Check UI
     public boolean isAPPLogoDisplayed() {
@@ -64,11 +84,6 @@ public class CheckOutPage extends Hook {
         driver.findElement(CheckOutPageUI.MENU).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(CheckOutPageUI.RESET_APP_STATE_LINK));
         driver.findElement(CheckOutPageUI.RESET_APP_STATE_LINK).click();
-    }
-
-    public String getTitleCheckOutPage() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(CheckOutPageUI.PAGE_TITLE));
-        return driver.findElement(CheckOutPageUI.PAGE_TITLE).getText();
     }
 
     public boolean isShoppingCartDisplayed() {
@@ -191,10 +206,14 @@ public class CheckOutPage extends Hook {
         return Math.abs(sumOfPrice - itemTotal) < 0.01 && Math.abs(sumOfPrice * 0.08 - tax) < 0.01 && Math.abs(total - itemTotal - tax) < 0.01;
     }
 
+    public void clickItemName(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(CheckOutPageUI.NAME_OF_ITEM));
+        driver.findElement(CheckOutPageUI.NAME_OF_ITEM).click();
+    }
+
     public void clickCancelFromOverview() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(CheckOutPageUI.CANCEL_CHECKOUT_BUTTON));
         driver.findElement(CheckOutPageUI.CANCEL_CHECKOUT_BUTTON).click();
-
     }
 
     public void clickFinish() {
