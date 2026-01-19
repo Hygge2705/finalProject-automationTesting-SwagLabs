@@ -84,7 +84,6 @@ public class MenuTest extends Hook {
             inventoryPage.openMenu();
             inventoryPage.closeMenu();
         }
-
         inventoryPage.openMenu();
         Assert.assertTrue(inventoryPage.isMenuActive(), "Menu is not active after stress testing!");
     }
