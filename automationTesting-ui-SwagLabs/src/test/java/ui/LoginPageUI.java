@@ -9,5 +9,4 @@ public class LoginPageUI {
     public static final By ERROR_MESSAGE = By.cssSelector("[data-test='error']");
     public static final By APP_LOGO = By.className("app_logo");
     public static final By INVENTORY_ITEM = By.className("inventory_item");
-
 }

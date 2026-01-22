@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Automation Test Suite">
+
+    <test name="Functional Tests">
+        <classes>
+            <class name="feature.LoginPageTest"/>
+            <class name="feature.InventoryPageTest"/>
+            <class name="feature.MenuTest"/>
+            <class name="feature.YourCartPageTest"/>
+            <class name="feature.CheckOutPageTest"/>
+        </classes>
+    </test>
+
+</suite>
